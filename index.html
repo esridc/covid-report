@@ -34,8 +34,9 @@
     <div class="column-24">
         <hub-suggest-input id="county-lookup" placeholder="Search for County"></hub-suggest-input>
         <div id="results">
-            <iframe id="county-report" src="" height=400 width="100%"></iframe>
-
+            <iframe id="county-report" src="" height="500px" width="100%"></iframe>
+        </div>            
+        <div id="embed-options">
             <div class="panel modifier-class">
                 <label>
                     Copy and paste this URL into the Hub iFrame Card
@@ -59,7 +60,7 @@
                     </span>
                     <input type="text" id="iframe-code" class="input-group-input" readonly></input>
                 </div>              
-            </div>
+            </div>            
         </div>          
     </div>    
 </div>
@@ -82,6 +83,12 @@
         const urlParams = new URLSearchParams(window.location.search);
         
         window.onload = function() {
+            const embed = urlParams.get('embed');
+            if(embed) {
+                suggestElement.style.display = "none";
+                document.getElementById('embed-options').style.display = "none";
+            }
+
             const county = urlParams.get('county');
             if(county !== undefined && county !== null && county.length > 0) {
                 suggestElement.query = county
