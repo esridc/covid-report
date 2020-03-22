@@ -20,52 +20,69 @@
     <![endif]-->
     <script src='https://unpkg.com/@esri/radar@0.0.10/dist/radar.js'></script>
     <style>
+        body { margin:0px; }
         input:disabled { opacity: 1 }
         #results { opacity: 0; transition: all 1.5s ease-in-out 0s; }
+        #embed-button { margin-top: 2vh; float: right }
+        hub-display-input {
+            height: 10vh;
+        }
+        iframe {     
+            display: block;       /* iframes are inline by default */
+            background: #000;
+            border: none;         /* Reset default border */
+            height: 90vh;        /* Viewport-relative units */
+            width: 100vw;
+        }
     </style>
 </head>
 
 <body>
-    <div class="wrapper">
-<!-- main-content -->
-<div class="grid-container">
+    <div id="header" class="column-24">
+        <div class="column-16 post-4">
+            <hub-suggest-input id="county-lookup" placeholder="Search for a County or County-equivalent"></hub-suggest-input>
+        </div>
+          <div class="column-4 tablet-first-column">
+            <calcite-button id="embed-button" onclick="embedModal.open()" >Embed</calcite-button>
+        </div>
+    </div>
 
-    <!-- side navigation -->
-    <div class="column-24">
-        <hub-suggest-input id="county-lookup" placeholder="Search for County"></hub-suggest-input>
-        <div id="results">
-            <iframe id="county-report" src="" height="500px" width="100%"></iframe>
-        </div>            
-        <div id="embed-options">
-            <div class="panel modifier-class">
-                <label>
-                    Copy and paste this URL into the Hub iFrame Card
-                </label>
 
-                <div class="input-group">
-                    <span class="input-group-button">
-                        <button id="src-button" onclick="copyText('iframe-src')" class="btn modifier-class">Copy</button>
-                    </span>
-                    <input type="text" id="iframe-src" class="input-group-input" readonly></input>
+    <iframe id="county-report" src=""></iframe>
+
+    <calcite-modal aria-labelledby="modal-title">
+        <h3 slot="header" id="modal-title">Embed into your Website</h3>
+        <div slot="content">
+            <div id="embed-options">
+                <div class="panel modifier-class">
+                    <label>
+                        Copy and paste this URL into the Hub iFrame Card
+                    </label>
+        
+                    <div class="input-group">
+                        <span class="input-group-button">
+                            <button id="src-button" onclick="copyText('iframe-src')" class="btn modifier-class">Copy</button>
+                        </span>
+                        <input type="text" id="iframe-src" class="input-group-input" readonly></input>
+                    </div>
                 </div>
-            </div>
+        
+                <div class="panel modifier-class">
+                    <label>
+                        Copy and paste this HTML into any other website
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-button">
+                            <button id="code-button" onclick="copyText('iframe-code')" class="btn modifier-class">Copy</button>
+                        </span>
+                        <input type="text" id="iframe-code" class="input-group-input" readonly></input>
+                    </div>              
+                </div>            
+            </div>          
+        
+        </div>
+      </calcite-modal>
 
-            <div class="panel modifier-class">
-                <label>
-                    Copy and paste this HTML into any other website
-                </label>
-                <div class="input-group">
-                    <span class="input-group-button">
-                        <button id="code-button" onclick="copyText('iframe-code')" class="btn modifier-class">Copy</button>
-                    </span>
-                    <input type="text" id="iframe-code" class="input-group-input" readonly></input>
-                </div>              
-            </div>            
-        </div>          
-    </div>    
-</div>
-
-</div>
   <calcite-popover id="iframe-src-popover" offset-distance="6" offset-skidding="0" reference-element="src-button" add-click-handle close-button="false">
       <div style="padding:12px 16px">Copied to your clipboard</div>
     </calcite-popover> 
@@ -73,7 +90,7 @@
     <div style="padding:12px 16px">Copied to your clipboard</div>
     </calcite-popover>  
 <script>
-        const resultsElement = document.getElementById('results');
+        const headerElement = document.getElementById('header');
         const suggestElement = document.querySelector('hub-suggest-input');
         const iframeElement = document.getElementById('county-report');
         const iframeCode = document.getElementById('iframe-code');
@@ -81,12 +98,14 @@
         const calciteAlert = document.querySelector('calcite-alert');
         const calciteAlertMsg = document.getElementById('calcite-alert-message');
         const urlParams = new URLSearchParams(window.location.search);
+        const embedModal = document.querySelector("calcite-modal");
         
         window.onload = function() {
+
             const embed = urlParams.get('embed');
             if(embed) {
-                suggestElement.style.display = "none";
-                document.getElementById('embed-options').style.display = "none";
+                headerElement.style.display = "none";
+                iframeElement.style.height = "100vh";
             }
 
             const county = urlParams.get('county');
