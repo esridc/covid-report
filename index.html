@@ -44,6 +44,7 @@
             height: 10vh;
         }
 
+        
         iframe {
             display: block;
             background: #000;
@@ -52,6 +53,10 @@
             width: 100vw;
         }
 
+        #embed-button {
+            margin-top: 0.75em;
+        }
+        
         a:hover {
             cursor: pointer;
         }
@@ -70,9 +75,9 @@
                     <a class="skip-to-content" href="#skip-to-content">Skip To Content</a>
                     <a href="#" class="top-nav-title">Explore County-level Coronavirus Impact Planning </a>
                     <nav class="class-top-nav-list right" role="navigation" aria-labelledby="usernav">
-                        <a class="btn btn-clear margin-left-1" href="#" onclick="embedModal.open()">Embed</a>
-                        <!-- <calcite-button id="embed-button" appearance="outline" onclick="embedModal.open()">Embed
-                        </calcite-button> -->
+                        <!-- <a class="btn btn-clear margin-left-1" href="#" onclick="embedModal.open()">Embed</a> -->
+                        <calcite-button id="embed-button" appearance="outline" onclick="embedModal.open()">Embed
+                        </calcite-button>
                     </nav>
                 </div>
             </div>
