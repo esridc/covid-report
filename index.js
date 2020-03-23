@@ -13,6 +13,7 @@ window.onload = function () {
     const embed = urlParams.get('embed');
     if (embed) {
         headerElement.style.display = "none";
+        suggestElement.style.display = "none";
         iframeElement.style.height = "100vh";
     }
 
