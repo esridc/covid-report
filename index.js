@@ -33,9 +33,10 @@ function loadReport(countyName) {
     let selectedCounty = counties.filter((county) => {
         return countyName == county.name;
     })
-    let embedUrl = `https://bao.arcgis.com/InfographicsPlayer/ArcGISPro/BA_Covid19_Counties/${selectedCounty[0].fips}.html`;
-    iframeElement.src = embedUrl;
+    let reportUrl = `https://bao.arcgis.com/InfographicsPlayer/ArcGISPro/BA_Covid19_Counties/${selectedCounty[0].fips}.html`;
+    iframeElement.src = reportUrl;
 
+    let embedUrl = `https://esridc.github.io/covid-report/?&county=${countyName}&embed=true`
     iframeSrc.value = embedUrl;
     iframeCode.value = `<iframe src="${embedUrl}" height="500" width="100%"></iframe>`;
     results.style.opacity = "1.0";
