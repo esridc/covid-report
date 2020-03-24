@@ -47,6 +47,7 @@
         
         iframe {
             display: block;
+            opacity: 0;
             background: #000;
             border: none;
             height: 90vh;
@@ -104,7 +105,7 @@
         <hub-suggest-input id="county-lookup" placeholder="Search for a County or County-equivalent">
         </hub-suggest-input>
 
-        <iframe id="county-report" src=""  class="fade-in"></iframe>
+        <div id="results"><iframe id="county-report" src=""  class="fade-in"></iframe></div>
     </div>
     <calcite-modal aria-labelledby="modal-title" size="medium">
         <h3 slot="header" id="modal-title">Embed these Infographics in ArcGIS Hub and Websites.</h3>
