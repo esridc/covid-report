@@ -33,7 +33,7 @@ function loadReport(countyName) {
     let selectedCounty = counties.filter((county) => {
         return countyName == county.name;
     })
-    let reportUrl = `https://bao.arcgis.com/InfographicsPlayer/ArcGISPro/BA_Covid19_Counties/${selectedCounty[0].fips}.html`;
+    let reportUrl = `https://bao.arcgis.com/covid-19/us/county/${selectedCounty[0].fips}.html`;
     iframeElement.src = reportUrl;
 
     let embedUrl = `https://esridc.github.io/covid-report/?&county=${countyName}&embed=true`
